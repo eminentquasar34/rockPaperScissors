@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script></script>
+</head>
+<body>
+    
+</body>
+
+<script>
+    function getComputerChoice() {
+        let choice = Math.floor((Math.random() * 3))
+        if (choice == 0) {
+            return "Scissors"
+        } else if (choice == 1) {
+            return "Paper"
+        } else if (choice == 2) {
+            return "Rock"
+        }
+
+    }
+
+    function playRound(playerSelection, computerSelection) {
+        if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+            console.log(`Draw! ${playerSelection.toUpperCase()} and ${computerSelection.toUpperCase()} are the same!`)
+            return [0, 0]
+        } else if (playerSelection.toLowerCase() == "rock") {
+            if (computerSelection.toLowerCase() == "paper") {
+                console.log("You lose! PAPER beats ROCK!")
+                return [0, 1]
+                
+            } else {
+                
+                console.log("You win! ROCK beats SCISSORS!")
+                return [1, 0]
+            }
+        } else if (playerSelection.toLowerCase() == "paper") {
+            if (computerSelection.toLowerCase() == "rock") {
+                
+                console.log("You win! PAPER beats ROCK!")
+                return [1, 0]
+            } else {
+                console.log("You lose! SCISSORS beats PAPER!")
+                return [0, 1]          
+            }
+        } else if (playerSelection.toLowerCase() == "scissors") {
+            if (computerSelection.toLowerCase() == "paper") {
+                
+                console.log("You win! SCISSORS beats PAPER!")
+                return [1, 0]
+            } else {
+                
+                console.log("You lose! ROCK beats SCISSORS!")
+                return [0, 1]
+            }
+        }
+    }
+
+    function playGame() {
+        let playerScore = 0
+        let computerScore = 0
+        for (let i = 1; i <= 5; i ++) {
+            computerPick = getComputerChoice()
+            userInput = prompt("Rock, paper, scissors. What do you choose? ")
+            let scoreUpdate = playRound(userInput, computerPick)
+            console.log(`User played: ${userInput}     Computer played: ${computerPick}`)
+            playerScore += parseInt(scoreUpdate[0])
+            computerScore += parseInt(scoreUpdate[1])
+        }
+        console.log(playerScore, computerScore)
+    }
+
+    console.log(getComputerChoice())
+    playGame()
+</script>
+</html>
