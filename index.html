@@ -7,7 +7,16 @@
     <script></script>
 </head>
 <body>
-    
+    <div id="choices">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+        
+    </div>
+    <div id="results">
+        <div id="currentRound"></div>
+        <div id="score"></div>
+    </div>
 </body>
 
 <script>
@@ -33,7 +42,6 @@
                 return [0, 1]
                 
             } else {
-                
                 console.log("You win! ROCK beats SCISSORS!")
                 return [1, 0]
             }
@@ -62,18 +70,32 @@
     function playGame() {
         let playerScore = 0
         let computerScore = 0
-        for (let i = 1; i <= 5; i ++) {
+        let currentRound = document.querySelector("#currentRound");
+        let score = document.querySelector("#score");
             computerPick = getComputerChoice()
-            userInput = prompt("Rock, paper, scissors. What do you choose? ")
-            let scoreUpdate = playRound(userInput, computerPick)
-            console.log(`User played: ${userInput}     Computer played: ${computerPick}`)
-            playerScore += parseInt(scoreUpdate[0])
-            computerScore += parseInt(scoreUpdate[1])
-        }
-        console.log(playerScore, computerScore)
+            let userInput = 0;
+            let scoreUpdate = [0, 0];
+            const buttons = document.querySelectorAll("button");
+            buttons.forEach((button) => {
+                button.addEventListener("click", () =>  {
+                    userInput = button.id;
+                    scoreUpdate = playRound(userInput, computerPick);
+                    playerScore += parseInt(scoreUpdate[0])
+                    computerScore += parseInt(scoreUpdate[1])
+                    currentRound.textContent = `User played: ${userInput}     Computer played: ${computerPick}`;
+                    score.textContent = `Player Score: ${playerScore}   Computer Score: ${computerScore}`;
+                    if (playerScore == 5) {
+                        alert("Player wins!");
+                    }
+                    if (computerScore == 5) {
+                        alert("Computer wins!");
+                    }
+                    
+                })
+            });
+            
     }
-
-    console.log(getComputerChoice())
+        
     playGame()
 </script>
 </html>
